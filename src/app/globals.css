@@ -7,7 +7,9 @@ body {
   height: 100%;
 }
 
-body {
-  margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+@layer base {
+  body {
+    @apply leading-relaxed;
+    margin: 0;
+  }
 }
