@@ -2,20 +2,20 @@ export default function HomePage() {
   return (
     <main className="space-y-16 pb-16">
       <section className="border-b border-white/5 bg-brand-soft/60">
-        <div className="container grid gap-10 py-16 md:grid-cols-[minmax(0,2fr)_minmax(0,1.4fr)] md:items-center">
+        <div className="container grid gap-10 py-16 md:grid-cols-[minmax(0,2fr)_minmax(0,1.4fr)] md:items-center md:min-h-[70vh]">
           <div className="space-y-4">
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">
               Zenta / Interior Film
             </p>
-            <h1 className="text-3xl font-semibold tracking-tight md:text-4xl">
+            <h1 className="text-3xl font-semibold tracking-tight leading-tight md:text-5xl">
               รีโนเวท space ด้วยฟิล์มตกแต่งยุคใหม่
             </h1>
-            <p className="max-w-xl text-sm leading-relaxed text-slate-400 md:text-base">
+            <p className="max-w-xl text-base leading-relaxed text-slate-400 md:text-lg">
               เว็บนี้จะเป็นศูนย์กลางสำหรับการเลือกฟิล์มตกแต่งภายใน ทั้งสำหรับเจ้าของธุรกิจ
               นักออกแบบ และเจ้าของบ้าน — เร็ว สะอาด เป็นระบบ และเข้าใจง่าย
             </p>
-            <div className="flex flex-col gap-3 text-xs md:flex-row md:items-center md:gap-4">
-              <button className="inline-flex items-center justify-center rounded-full bg-brand-accent px-5 py-2 text-[11px] font-medium uppercase tracking-[0.18em] text-slate-950">
+            <div className="mt-6 flex flex-col gap-3 text-xs md:flex-row md:items-center md:gap-4">
+              <button className="inline-flex items-center justify-center rounded-full bg-brand-accent px-6 py-2.5 text-[11px] font-medium uppercase tracking-[0.18em] text-slate-950">
                 ขอคำปรึกษา / ใบเสนอราคา
               </button>
               <div className="flex flex-wrap gap-x-4 gap-y-1 text-slate-400">
@@ -31,24 +31,42 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-          <div className="rounded-2xl border border-white/10 bg-brand-soft/80 p-6 text-sm text-slate-300">
-            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.22em] text-slate-400">
-              สำหรับใคร
-            </p>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <span className="font-medium text-slate-100">เจ้าของธุรกิจ / แบรนด์</span> – ต้องรีโนเวทร้าน
-                หรือ space ให้ทันสมัย โดยไม่เสีย downtime นาน
-              </li>
-              <li>
-                <span className="font-medium text-slate-100">นักออกแบบ / สถาปนิก</span> – ต้องการวัสดุที่มี spec
-                ชัด ใช้งานง่าย และนำเสนอให้ลูกค้าได้มั่นใจ
-              </li>
-              <li>
-                <span className="font-medium text-slate-100">เจ้าของบ้าน</span> – อยากเปลี่ยนบรรยากาศห้อง
-                โดยไม่ต้องเปลี่ยนเฟอร์นิเจอร์ทั้งชุด
-              </li>
-            </ul>
+          <div className="space-y-4">
+            <div className="overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-slate-950 via-slate-900 to-brand-accent/40 p-4 shadow-[0_20px_60px_rgba(15,23,42,0.7)]">
+              <div className="flex gap-3">
+                <div className="flex-1 space-y-3">
+                  <div className="h-32 rounded-2xl bg-slate-900/70 md:h-40" />
+                  <div className="flex gap-2">
+                    <div className="h-10 flex-1 rounded-xl bg-slate-800/80" />
+                    <div className="h-10 flex-1 rounded-xl bg-slate-800/60" />
+                  </div>
+                </div>
+                <div className="hidden w-20 flex-col gap-2 md:flex">
+                  <div className="h-7 rounded-full bg-slate-800/80" />
+                  <div className="h-7 rounded-full bg-slate-800/60" />
+                  <div className="h-7 rounded-full bg-slate-800/40" />
+                </div>
+              </div>
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-brand-soft/80 p-6 text-sm text-slate-300">
+              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.22em] text-slate-400">
+                สำหรับใคร
+              </p>
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <span className="font-medium text-slate-100">เจ้าของธุรกิจ / แบรนด์</span> – ต้องรีโนเวทร้าน
+                  หรือ space ให้ทันสมัย โดยไม่เสีย downtime นาน
+                </li>
+                <li>
+                  <span className="font-medium text-slate-100">นักออกแบบ / สถาปนิก</span> – ต้องการวัสดุที่มี spec
+                  ชัด ใช้งานง่าย และนำเสนอให้ลูกค้าได้มั่นใจ
+                </li>
+                <li>
+                  <span className="font-medium text-slate-100">เจ้าของบ้าน</span> – อยากเปลี่ยนบรรยากาศห้อง
+                  โดยไม่ต้องเปลี่ยนเฟอร์นิเจอร์ทั้งชุด
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
