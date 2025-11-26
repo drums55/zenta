@@ -11,8 +11,8 @@ export default function HomePage() {
               รีโนเวท space ด้วยฟิล์มตกแต่งยุคใหม่
             </h1>
             <p className="max-w-xl text-base leading-relaxed text-slate-400 md:text-lg">
-              เว็บนี้จะเป็นศูนย์กลางสำหรับการเลือกฟิล์มตกแต่งภายใน ทั้งสำหรับเจ้าของธุรกิจ
-              นักออกแบบ และเจ้าของบ้าน — เร็ว สะอาด เป็นระบบ และเข้าใจง่าย
+              เปลี่ยนผนัง เฟอร์นิเจอร์ และ space ด้วยฟิล์มตกแต่งภายใน เลือกโทนและพื้นผิวที่เหมาะกับธุรกิจ
+              นักออกแบบ และเจ้าของบ้าน — รีโนเวทเร็ว สะอาด และไม่ต้องทุบ
             </p>
             <div className="mt-6 flex flex-col gap-3 text-xs md:flex-row md:items-center md:gap-4">
               <button className="inline-flex items-center justify-center rounded-full bg-brand-accent px-6 py-2.5 text-[11px] font-medium uppercase tracking-[0.18em] text-slate-950">
@@ -72,7 +72,7 @@ export default function HomePage() {
       </section>
 
       <section className="container space-y-6">
-        <h2 className="text-lg font-semibold tracking-tight md:text-xl">เลื่อกเส้นทางที่ตรงกับคุณ</h2>
+        <h2 className="text-lg font-semibold tracking-tight md:text-xl">เลือกเส้นทางที่ตรงกับคุณ</h2>
         <div className="grid gap-4 md:grid-cols-3">
           <div className="rounded-xl border border-white/10 bg-brand-soft/40 p-5 text-sm text-slate-300">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
@@ -94,7 +94,7 @@ export default function HomePage() {
               วัสดุสำหรับงานออกแบบ interior
             </h3>
             <p className="mt-2 text-sm leading-relaxed">
-              เข้าถึง catalogue, spec sheet และ pattern explorer (ระยะถัดไป)
+              เข้าถึง catalogue, spec sheet และตัวอย่างลายฟิล์มผ่านเครื่องมือค้นหาลาย
               เพื่อเลือกฟิล์มที่ตรง concept และข้อกำหนดโครงการ
             </p>
           </div>
@@ -140,8 +140,8 @@ export default function HomePage() {
               ระบบ &amp; ความรู้
             </p>
             <p className="mt-2 text-sm leading-relaxed">
-              เว็บนี้จะมีทั้ง knowledge hub คู่มือการเลือกฟิล์ม
-              และระบบ catalog ที่ช่วยให้ตัดสินใจง่าย ไม่ต้องเดาเอง
+              คุณจะได้ทั้งบทความความรู้ คู่มือการเลือกฟิล์ม
+              และ catalog ที่จัดเป็นหมวดหมู่ ช่วยให้ตัดสินใจได้ง่ายขึ้น ไม่ต้องเดาเอง
             </p>
           </div>
         </div>
@@ -149,11 +149,11 @@ export default function HomePage() {
 
       <section className="container space-y-4">
         <h2 className="text-lg font-semibold tracking-tight md:text-xl">
-          ตัวอย่างเคส (ตัวอย่างโครง)
+          ตัวอย่างเคสรีโนเวท
         </h2>
         <p className="max-w-2xl text-sm leading-relaxed text-slate-400">
-          ใน phase ถัดไป ส่วนนี้จะแสดง case study จริงของ Zenta
-          พร้อมก่อน/หลัง เรื่องราว และลิงก์ไปยังลายฟิล์มที่ใช้
+          เรากำลังรวบรวม case study จริงของ Zenta
+          ให้คุณเห็นทั้งภาพก่อน–หลัง เรื่องราวของแต่ละโปรเจกต์ และลายฟิล์มที่ใช้ในงานนั้น ๆ
         </p>
       </section>
 
@@ -191,11 +191,11 @@ export default function HomePage() {
 
       <section className="container space-y-3">
         <h2 className="text-lg font-semibold tracking-tight md:text-xl">
-          ความน่าเชื่อถือ &amp; พาร์ตเนอร์ (placeholder)
+          ความน่าเชื่อถือ &amp; พาร์ตเนอร์
         </h2>
         <p className="max-w-2xl text-sm leading-relaxed text-slate-400">
-          ใน phase ถัดไป ส่วนนี้จะใช้สำหรับโลโก้ลูกค้า แบรนด์พาร์ตเนอร์ หรือข้อความรับรอง เพื่อให้เว็บดูมี
-          social proof เทียบเท่าหรือเหนือกว่า BODAQ / 3M / TODA
+          ส่วนนี้จะใช้แสดงโลโก้ลูกค้า แบรนด์พาร์ตเนอร์ และข้อความรับรอง
+          เพื่อให้คุณเห็นตัวอย่างธุรกิจที่เลือกใช้ Zenta ควบคู่กับผู้เล่นระดับสากลอย่าง BODAQ, 3M และ TODA
         </p>
       </section>
     </main>

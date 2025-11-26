@@ -8,8 +8,8 @@ export default function ProductsPage() {
           ผลิตภัณฑ์ Zenta Interior Film
         </h1>
         <p className="max-w-2xl text-sm leading-relaxed text-slate-400 md:text-base">
-          หน้า catalog นี้จะเริ่มจากรายการ pattern ตัวอย่าง เพื่อใช้ทดสอบ layout และ data model
-          ก่อนที่จะนำเข้า catalogue จริงและระบบตัวกรองใน phase ถัดไป
+          เลือกดูตัวอย่างลายฟิล์มตกแต่งภายในจาก Zenta พร้อมโทนสี พื้นผิว และประเภทงานที่เหมาะสม
+          ลายและข้อมูลจะถูกเติมเข้ามาเรื่อย ๆ ตามโปรเจกต์และคอลเลกชันใหม่ ๆ
         </p>
       </header>
 
