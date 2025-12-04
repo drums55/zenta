@@ -1,16 +1,16 @@
 export default function HomePage() {
   return (
     <main className="space-y-16 pb-16">
-      <section className="border-b border-white/5 bg-brand-soft/60">
+      <section className="border-b border-slate-200/80 bg-brand-soft">
         <div className="container grid gap-10 py-16 md:grid-cols-[minmax(0,2fr)_minmax(0,1.4fr)] md:items-center md:min-h-[70vh]">
           <div className="space-y-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-600">
               Zenta / Interior Film
             </p>
             <h1 className="text-3xl font-semibold tracking-tight leading-tight md:text-5xl">
               รีโนเวท space ด้วยฟิล์มตกแต่งยุคใหม่
             </h1>
-            <p className="max-w-xl text-base leading-relaxed text-slate-400 md:text-lg">
+            <p className="max-w-xl text-base leading-relaxed text-slate-700 md:text-lg">
               เปลี่ยนผนัง เฟอร์นิเจอร์ และ space ด้วยฟิล์มตกแต่งภายใน เลือกโทนและพื้นผิวที่เหมาะกับธุรกิจ
               นักออกแบบ และเจ้าของบ้าน — รีโนเวทเร็ว สะอาด และไม่ต้องทุบ
             </p>
@@ -18,7 +18,7 @@ export default function HomePage() {
               <button className="inline-flex items-center justify-center rounded-full bg-brand-accent px-6 py-2.5 text-[11px] font-medium uppercase tracking-[0.18em] text-slate-950">
                 ขอคำปรึกษา / ใบเสนอราคา
               </button>
-              <div className="flex flex-wrap gap-x-4 gap-y-1 text-slate-400">
+              <div className="flex flex-wrap gap-x-4 gap-y-1 text-slate-600">
                 <span>
                   • รีโนเวทเร็ว ไม่ต้องทุบ
                 </span>
@@ -32,37 +32,37 @@ export default function HomePage() {
             </div>
           </div>
           <div className="space-y-4">
-            <div className="overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-slate-950 via-slate-900 to-brand-accent/40 p-4 shadow-[0_20px_60px_rgba(15,23,42,0.7)]">
+            <div className="overflow-hidden rounded-3xl border border-slate-200/80 bg-gradient-to-br from-brand-soft via-white to-brand/40 p-4 shadow-[0_18px_40px_rgba(15,23,42,0.18)]">
               <div className="flex gap-3">
                 <div className="flex-1 space-y-3">
-                  <div className="h-32 rounded-2xl bg-slate-900/70 md:h-40" />
+                  <div className="h-32 rounded-2xl bg-brand/40 md:h-40" />
                   <div className="flex gap-2">
-                    <div className="h-10 flex-1 rounded-xl bg-slate-800/80" />
-                    <div className="h-10 flex-1 rounded-xl bg-slate-800/60" />
+                    <div className="h-10 flex-1 rounded-xl bg-brand/25" />
+                    <div className="h-10 flex-1 rounded-xl bg-brand/10" />
                   </div>
                 </div>
                 <div className="hidden w-20 flex-col gap-2 md:flex">
-                  <div className="h-7 rounded-full bg-slate-800/80" />
-                  <div className="h-7 rounded-full bg-slate-800/60" />
-                  <div className="h-7 rounded-full bg-slate-800/40" />
+                  <div className="h-7 rounded-full bg-brand/25" />
+                  <div className="h-7 rounded-full bg-brand/15" />
+                  <div className="h-7 rounded-full bg-brand/10" />
                 </div>
               </div>
             </div>
-            <div className="rounded-2xl border border-white/10 bg-brand-soft/80 p-6 text-sm text-slate-300">
-              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.22em] text-slate-400">
+            <div className="rounded-2xl border border-slate-200/80 bg-brand-soft/80 p-6 text-sm text-slate-700">
+              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.22em] text-slate-600">
                 สำหรับใคร
               </p>
               <ul className="space-y-2 text-sm">
                 <li>
-                  <span className="font-medium text-slate-100">เจ้าของธุรกิจ / แบรนด์</span> – ต้องรีโนเวทร้าน
+                  <span className="font-medium text-slate-900">เจ้าของธุรกิจ / แบรนด์</span> – ต้องรีโนเวทร้าน
                   หรือ space ให้ทันสมัย โดยไม่เสีย downtime นาน
                 </li>
                 <li>
-                  <span className="font-medium text-slate-100">นักออกแบบ / สถาปนิก</span> – ต้องการวัสดุที่มี spec
+                  <span className="font-medium text-slate-900">นักออกแบบ / สถาปนิก</span> – ต้องการวัสดุที่มี spec
                   ชัด ใช้งานง่าย และนำเสนอให้ลูกค้าได้มั่นใจ
                 </li>
                 <li>
-                  <span className="font-medium text-slate-100">เจ้าของบ้าน</span> – อยากเปลี่ยนบรรยากาศห้อง
+                  <span className="font-medium text-slate-900">เจ้าของบ้าน</span> – อยากเปลี่ยนบรรยากาศห้อง
                   โดยไม่ต้องเปลี่ยนเฟอร์นิเจอร์ทั้งชุด
                 </li>
               </ul>
@@ -74,11 +74,11 @@ export default function HomePage() {
       <section className="container space-y-6">
         <h2 className="text-lg font-semibold tracking-tight md:text-xl">เลือกเส้นทางที่ตรงกับคุณ</h2>
         <div className="grid gap-4 md:grid-cols-3">
-          <div className="rounded-xl border border-white/10 bg-brand-soft/40 p-5 text-sm text-slate-300">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
+          <div className="rounded-xl border border-slate-200/80 bg-brand-soft/40 p-5 text-sm text-slate-700">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">
               สำหรับเจ้าของธุรกิจ
             </p>
-            <h3 className="mt-2 text-base font-semibold text-slate-100">
+            <h3 className="mt-2 text-base font-semibold text-slate-900">
               รีโนเวทร้าน/ออฟฟิศให้ตรง brand
             </h3>
             <p className="mt-2 text-sm leading-relaxed">
@@ -86,11 +86,11 @@ export default function HomePage() {
               และแนวทางการเลือกฟิล์ม
             </p>
           </div>
-          <div className="rounded-xl border border-white/10 bg-brand-soft/40 p-5 text-sm text-slate-300">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
+          <div className="rounded-xl border border-slate-200/80 bg-brand-soft/40 p-5 text-sm text-slate-700">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">
               สำหรับนักออกแบบ / สถาปนิก
             </p>
-            <h3 className="mt-2 text-base font-semibold text-slate-100">
+            <h3 className="mt-2 text-base font-semibold text-slate-900">
               วัสดุสำหรับงานออกแบบ interior
             </h3>
             <p className="mt-2 text-sm leading-relaxed">
@@ -98,11 +98,11 @@ export default function HomePage() {
               เพื่อเลือกฟิล์มที่ตรง concept และข้อกำหนดโครงการ
             </p>
           </div>
-          <div className="rounded-xl border border-white/10 bg-brand-soft/40 p-5 text-sm text-slate-300">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
+          <div className="rounded-xl border border-slate-200/80 bg-brand-soft/40 p-5 text-sm text-slate-700">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">
               สำหรับเจ้าของบ้าน
             </p>
-            <h3 className="mt-2 text-base font-semibold text-slate-100">
+            <h3 className="mt-2 text-base font-semibold text-slate-900">
               เปลี่ยนบรรยากาศบ้านแบบไม่ต้องทุบ
             </h3>
             <p className="mt-2 text-sm leading-relaxed">
@@ -116,9 +116,9 @@ export default function HomePage() {
         <h2 className="text-lg font-semibold tracking-tight md:text-xl">
           ทำไมต้อง interior film กับ Zenta
         </h2>
-        <div className="grid gap-4 text-sm text-slate-300 md:grid-cols-3">
-          <div className="rounded-xl border border-white/10 bg-brand-soft/40 p-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
+        <div className="grid gap-4 text-sm text-slate-700 md:grid-cols-3">
+          <div className="rounded-xl border border-slate-200/80 bg-white/80 p-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">
               เร็ว &amp; สะอาด
             </p>
             <p className="mt-2 text-sm leading-relaxed">
@@ -126,8 +126,8 @@ export default function HomePage() {
               เหมาะกับ space ที่ต้องเปิดให้บริการต่อเนื่อง
             </p>
           </div>
-          <div className="rounded-xl border border-white/10 bg-brand-soft/40 p-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
+          <div className="rounded-xl border border-slate-200/80 bg-white/80 p-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">
               ดีไซน์หลากหลาย
             </p>
             <p className="mt-2 text-sm leading-relaxed">
@@ -135,8 +135,8 @@ export default function HomePage() {
               เพื่อสร้าง mood &amp; tone ที่ต่างกันสำหรับแต่ละธุรกิจหรือห้อง
             </p>
           </div>
-          <div className="rounded-xl border border-white/10 bg-brand-soft/40 p-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
+          <div className="rounded-xl border border-slate-200/80 bg-white/80 p-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">
               ระบบ &amp; ความรู้
             </p>
             <p className="mt-2 text-sm leading-relaxed">
@@ -151,7 +151,7 @@ export default function HomePage() {
         <h2 className="text-lg font-semibold tracking-tight md:text-xl">
           ตัวอย่างเคสรีโนเวท
         </h2>
-        <p className="max-w-2xl text-sm leading-relaxed text-slate-400">
+        <p className="max-w-2xl text-sm leading-relaxed text-slate-700">
           เรากำลังรวบรวม case study จริงของ Zenta
           ให้คุณเห็นทั้งภาพก่อน–หลัง เรื่องราวของแต่ละโปรเจกต์ และลายฟิล์มที่ใช้ในงานนั้น ๆ
         </p>
@@ -161,27 +161,27 @@ export default function HomePage() {
         <h2 className="text-lg font-semibold tracking-tight md:text-xl">
           ขั้นตอนการทำงานกับ Zenta
         </h2>
-        <ol className="grid gap-3 text-sm text-slate-300 md:grid-cols-4">
-          <li className="rounded-xl border border-white/10 bg-brand-soft/40 p-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">ขั้นที่ 1</p>
+        <ol className="grid gap-3 text-sm text-slate-700 md:grid-cols-4">
+          <li className="rounded-xl border border-slate-200/80 bg-brand-soft/40 p-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">ขั้นที่ 1</p>
             <p className="mt-2 text-sm leading-relaxed">
               คุย brief / requirement และดู reference เบื้องต้น (สามารถส่งรูป space ปัจจุบันมาได้)
             </p>
           </li>
-          <li className="rounded-xl border border-white/10 bg-brand-soft/40 p-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">ขั้นที่ 2</p>
+          <li className="rounded-xl border border-slate-200/80 bg-brand-soft/40 p-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">ขั้นที่ 2</p>
             <p className="mt-2 text-sm leading-relaxed">
               แนะนำ solution, series/ลาย และประมาณการงบ/ระยะเวลา
             </p>
           </li>
-          <li className="rounded-xl border border-white/10 bg-brand-soft/40 p-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">ขั้นที่ 3</p>
+          <li className="rounded-xl border border-slate-200/80 bg-brand-soft/40 p-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">ขั้นที่ 3</p>
             <p className="mt-2 text-sm leading-relaxed">
               นัดหมายติดตั้งและเตรียมพื้นที่ เพื่อลดการรบกวนการใช้งานจริงให้มากที่สุด
             </p>
           </li>
-          <li className="rounded-xl border border-white/10 bg-brand-soft/40 p-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">ขั้นที่ 4</p>
+          <li className="rounded-xl border border-slate-200/80 bg-brand-soft/40 p-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">ขั้นที่ 4</p>
             <p className="mt-2 text-sm leading-relaxed">
               ติดตั้งเสร็จ ตรวจงานร่วมกัน พร้อมคู่มือการดูแลรักษาพื้นผิว และ aftercare
             </p>
@@ -193,7 +193,7 @@ export default function HomePage() {
         <h2 className="text-lg font-semibold tracking-tight md:text-xl">
           ความน่าเชื่อถือ &amp; พาร์ตเนอร์
         </h2>
-        <p className="max-w-2xl text-sm leading-relaxed text-slate-400">
+        <p className="max-w-2xl text-sm leading-relaxed text-slate-700">
           ส่วนนี้จะใช้แสดงโลโก้ลูกค้า แบรนด์พาร์ตเนอร์ และข้อความรับรอง
           เพื่อให้คุณเห็นตัวอย่างธุรกิจที่เลือกใช้ Zenta ควบคู่กับผู้เล่นระดับสากลอย่าง BODAQ, 3M และ TODA
         </p>

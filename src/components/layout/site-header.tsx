@@ -13,18 +13,18 @@ const navItems = [
 
 export function SiteHeader() {
   return (
-    <header className="border-b border-white/5 bg-background/80 backdrop-blur">
+    <header className="border-b border-slate-200/70 bg-background/95 backdrop-blur">
       <div className="container flex h-16 items-center justify-between gap-6">
         <Link href="/" className="flex items-center gap-2 text-sm font-semibold tracking-[0.2em] uppercase">
           <span className="inline-block h-5 w-5 rounded-full bg-brand-accent" aria-hidden="true" />
           <span>Zenta</span>
         </Link>
-        <nav className="hidden items-center gap-5 text-xs text-slate-300 md:flex">
+        <nav className="hidden items-center gap-5 text-xs text-slate-700 md:flex">
           {navItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="hover:text-white transition-colors"
+              className="transition-colors hover:text-foreground"
             >
               {item.label}
             </Link>

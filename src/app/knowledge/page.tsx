@@ -9,7 +9,7 @@ export default function KnowledgePage() {
         <h1 className="text-2xl font-semibold tracking-tight md:text-3xl">
           ความรู้เรื่องฟิล์มตกแต่งภายใน
         </h1>
-        <p className="max-w-2xl text-sm leading-relaxed text-slate-400 md:text-base">
+        <p className="max-w-2xl text-sm leading-relaxed text-slate-700 md:text-base">
           รวบรวมบทความพื้นฐานเกี่ยวกับฟิล์มตกแต่งภายใน
           ช่วยให้คุณเข้าใจวัสดุ วิธีใช้งาน การดูแล และสิ่งที่ควรรู้ก่อนรีโนเวทด้วยฟิล์ม
         </p>
@@ -18,17 +18,17 @@ export default function KnowledgePage() {
       <div className="space-y-6">
         {Object.entries(articlesByCategory).map(([category, articles]) => (
           <section key={category} className="space-y-3">
-            <h2 className="text-sm font-semibold uppercase tracking-[0.22em] text-slate-400">
+            <h2 className="text-sm font-semibold uppercase tracking-[0.22em] text-slate-600">
               {categoryLabel(category)}
             </h2>
             <div className="grid gap-3 md:grid-cols-2">
               {articles.map((article) => (
                 <article
                   key={article.id}
-                  className="rounded-xl border border-white/10 bg-brand-soft/40 p-5 text-sm text-slate-200"
+                  className="rounded-xl border border-slate-200/80 bg-white/90 p-5 text-sm text-slate-800"
                 >
-                  <div className="mb-3 h-20 w-full rounded-xl bg-gradient-to-br from-slate-950 via-slate-900 to-brand-accent/30" />
-                  <h3 className="text-base font-semibold leading-snug text-slate-50">
+                  <div className="mb-3 h-20 w-full rounded-xl bg-gradient-to-br from-brand-soft via-white to-brand/30" />
+                  <h3 className="text-base font-semibold leading-snug text-slate-900">
                     {article.title}
                   </h3>
                   {article.publishedAt && (
@@ -36,7 +36,7 @@ export default function KnowledgePage() {
                       เผยแพร่: {article.publishedAt}
                     </p>
                   )}
-                  <p className="mt-2 text-xs leading-relaxed text-slate-300">
+                  <p className="mt-2 text-xs leading-relaxed text-slate-700">
                     {article.summary}
                   </p>
                 </article>
