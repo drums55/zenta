@@ -1,3 +1,8 @@
+import Link from "next/link";
+
+import { demoCaseStudies } from "@/data/case-studies";
+import { solutionSectors } from "@/data/solutions";
+
 export default function HomePage() {
   return (
     <main className="space-y-16 pb-16">
@@ -15,9 +20,20 @@ export default function HomePage() {
               นักออกแบบ และเจ้าของบ้าน — รีโนเวทเร็ว สะอาด และไม่ต้องทุบ
             </p>
             <div className="mt-6 flex flex-col gap-3 text-xs md:flex-row md:items-center md:gap-4">
-              <button className="inline-flex items-center justify-center rounded-full bg-brand-accent px-6 py-2.5 text-[11px] font-medium uppercase tracking-[0.18em] text-slate-950">
-                ขอคำปรึกษา / ใบเสนอราคา
-              </button>
+              <div className="flex flex-col gap-2 sm:flex-row">
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center justify-center rounded-full bg-brand-accent px-6 py-2.5 text-[11px] font-medium uppercase tracking-[0.18em] text-slate-50 transition hover:bg-brand-accent/90"
+                >
+                  ขอคำปรึกษา / ใบเสนอราคา
+                </Link>
+                <Link
+                  href="/case-studies"
+                  className="inline-flex items-center justify-center rounded-full border border-slate-200/80 bg-white px-6 py-2.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-700 transition hover:border-slate-300"
+                >
+                  ดูผลงาน
+                </Link>
+              </div>
               <div className="flex flex-wrap gap-x-4 gap-y-1 text-slate-600">
                 <span>
                   • รีโนเวทเร็ว ไม่ต้องทุบ
@@ -74,7 +90,10 @@ export default function HomePage() {
       <section className="container space-y-6">
         <h2 className="text-lg font-semibold tracking-tight md:text-xl">เลือกเส้นทางที่ตรงกับคุณ</h2>
         <div className="grid gap-4 md:grid-cols-3">
-          <div className="rounded-xl border border-slate-200/80 bg-brand-soft/40 p-5 text-sm text-slate-700">
+          <Link
+            href="/solutions"
+            className="group rounded-xl border border-slate-200/80 bg-brand-soft/40 p-5 text-sm text-slate-700 transition hover:border-slate-300 hover:bg-brand-soft/60"
+          >
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">
               สำหรับเจ้าของธุรกิจ
             </p>
@@ -85,8 +104,14 @@ export default function HomePage() {
               ดูโซลูชันตามประเภทงาน (ร้านอาหาร รีเทล คลินิก ฯลฯ) พร้อมตัวอย่างเคสจริง
               และแนวทางการเลือกฟิล์ม
             </p>
-          </div>
-          <div className="rounded-xl border border-slate-200/80 bg-brand-soft/40 p-5 text-sm text-slate-700">
+            <p className="mt-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-accent">
+              ดูโซลูชัน
+            </p>
+          </Link>
+          <Link
+            href="/professionals"
+            className="group rounded-xl border border-slate-200/80 bg-brand-soft/40 p-5 text-sm text-slate-700 transition hover:border-slate-300 hover:bg-brand-soft/60"
+          >
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">
               สำหรับนักออกแบบ / สถาปนิก
             </p>
@@ -97,8 +122,14 @@ export default function HomePage() {
               เข้าถึง catalogue, spec sheet และตัวอย่างลายฟิล์มผ่านเครื่องมือค้นหาลาย
               เพื่อเลือกฟิล์มที่ตรง concept และข้อกำหนดโครงการ
             </p>
-          </div>
-          <div className="rounded-xl border border-slate-200/80 bg-brand-soft/40 p-5 text-sm text-slate-700">
+            <p className="mt-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-accent">
+              สำหรับมืออาชีพ
+            </p>
+          </Link>
+          <Link
+            href="/knowledge"
+            className="group rounded-xl border border-slate-200/80 bg-brand-soft/40 p-5 text-sm text-slate-700 transition hover:border-slate-300 hover:bg-brand-soft/60"
+          >
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">
               สำหรับเจ้าของบ้าน
             </p>
@@ -108,7 +139,10 @@ export default function HomePage() {
             <p className="mt-2 text-sm leading-relaxed">
               เรียนรู้ว่า interior film คืออะไร ความทนทาน การดูแลรักษา และตัวอย่างการเปลี่ยนห้องจริง
             </p>
-          </div>
+            <p className="mt-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-accent">
+              อ่านความรู้
+            </p>
+          </Link>
         </div>
       </section>
 
@@ -148,6 +182,50 @@ export default function HomePage() {
       </section>
 
       <section className="container space-y-4">
+        <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+          <div>
+            <h2 className="text-lg font-semibold tracking-tight md:text-xl">
+              โซลูชันสำหรับธุรกิจ (ตามประเภทงาน)
+            </h2>
+            <p className="mt-1 max-w-2xl text-sm leading-relaxed text-slate-700">
+              เริ่มจาก sector ที่พบบ่อยในช่วง validate เพื่อพาไปดูเคสจริงและปิดงานได้เร็ว
+            </p>
+          </div>
+          <Link
+            href="/solutions"
+            className="text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-accent transition hover:text-foreground"
+          >
+            ดูทั้งหมด
+          </Link>
+        </div>
+
+        <div className="grid gap-4 md:grid-cols-3">
+          {solutionSectors.slice(0, 3).map((sector) => (
+            <Link
+              key={sector.slug}
+              href={`/solutions/${sector.slug}`}
+              className="group rounded-xl border border-slate-200/80 bg-white/90 p-5 text-sm text-slate-800 transition hover:border-slate-300 hover:bg-white"
+            >
+              <div className="flex items-center justify-between">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-600">
+                  {sector.title}
+                </p>
+                <span className="rounded-full bg-slate-900/70 px-2 py-[2px] font-mono text-[10px] uppercase tracking-[0.18em] text-slate-100">
+                  {sector.slug}
+                </span>
+              </div>
+              <p className="mt-2 text-sm leading-relaxed text-slate-700">
+                {sector.description}
+              </p>
+              <p className="mt-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-accent">
+                ดูโซลูชัน
+              </p>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="container space-y-4">
         <h2 className="text-lg font-semibold tracking-tight md:text-xl">
           ตัวอย่างเคสรีโนเวท
         </h2>
@@ -155,6 +233,52 @@ export default function HomePage() {
           เรากำลังรวบรวม case study จริงของ Zenta
           ให้คุณเห็นทั้งภาพก่อน–หลัง เรื่องราวของแต่ละโปรเจกต์ และลายฟิล์มที่ใช้ในงานนั้น ๆ
         </p>
+        <div className="grid gap-4 md:grid-cols-3">
+          {demoCaseStudies.slice(0, 3).map((cs) => {
+            const sectorLabel =
+              solutionSectors.find((sector) => sector.slug === cs.sector)?.title ??
+              cs.sector;
+
+            return (
+              <Link
+                key={cs.id}
+                href={`/case-studies/${cs.slug}`}
+                className="group flex flex-col rounded-xl border border-slate-200/80 bg-white/90 p-5 text-sm text-slate-800 transition hover:border-slate-300 hover:bg-white"
+              >
+                <div className="mb-3 flex items-center justify-between text-xs text-slate-600">
+                  <span className="uppercase tracking-[0.18em]">{sectorLabel}</span>
+                  {cs.location ? (
+                    <span className="text-[11px] text-slate-500">{cs.location}</span>
+                  ) : null}
+                </div>
+                <h3 className="text-base font-semibold leading-snug text-slate-900">
+                  {cs.title}
+                </h3>
+                <p className="mt-2 text-xs leading-relaxed text-slate-700">
+                  {cs.summary}
+                </p>
+                {cs.outcomes.length > 0 ? (
+                  <ul className="mt-3 space-y-1 text-[11px] leading-relaxed text-slate-700">
+                    {cs.outcomes.slice(0, 2).map((item) => (
+                      <li key={item}>• {item}</li>
+                    ))}
+                  </ul>
+                ) : null}
+                <p className="mt-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-accent">
+                  ดูเคสนี้
+                </p>
+              </Link>
+            );
+          })}
+        </div>
+        <div>
+          <Link
+            href="/case-studies"
+            className="inline-flex items-center justify-center rounded-full border border-slate-200/80 bg-white px-6 py-2.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-700 transition hover:border-slate-300"
+          >
+            ดูผลงานทั้งหมด
+          </Link>
+        </div>
       </section>
 
       <section className="container space-y-4">
@@ -197,6 +321,14 @@ export default function HomePage() {
           ส่วนนี้จะใช้แสดงโลโก้ลูกค้า แบรนด์พาร์ตเนอร์ และข้อความรับรอง
           เพื่อให้คุณเห็นตัวอย่างธุรกิจที่เลือกใช้ Zenta ควบคู่กับผู้เล่นระดับสากลอย่าง BODAQ, 3M และ TODA
         </p>
+        <div>
+          <Link
+            href="/contact"
+            className="inline-flex items-center justify-center rounded-full bg-brand-accent px-6 py-2.5 text-[11px] font-medium uppercase tracking-[0.18em] text-slate-50 transition hover:bg-brand-accent/90"
+          >
+            ขอคำปรึกษา / นัดสำรวจ
+          </Link>
+        </div>
       </section>
     </main>
   );

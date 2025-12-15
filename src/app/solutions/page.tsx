@@ -1,13 +1,53 @@
+import Link from "next/link";
+
+import { solutionSectors } from "@/data/solutions";
+
 export default function SolutionsPage() {
   return (
-    <div className="container py-10 space-y-4">
-      <h1 className="text-2xl md:text-3xl font-semibold tracking-tight">
-        โซลูชันตามประเภทงาน
-      </h1>
-      <p className="max-w-2xl text-sm md:text-base text-slate-400">
-        หน้าโซลูชันสำหรับ sector ต่าง ๆ เช่น ร้านอาหาร รีเทล คลินิก โรงแรม สำนักงาน และที่พักอาศัย
-        โครงนี้จะถูกเติมเนื้อหาและ layout ตาม IA ภายหลัง
-      </p>
+    <div className="container space-y-6 py-10">
+      <header className="space-y-3">
+        <h1 className="text-2xl font-semibold tracking-tight md:text-3xl">
+          โซลูชันตามประเภทงาน
+        </h1>
+        <p className="max-w-2xl text-sm leading-relaxed text-slate-700 md:text-base">
+          เลือกดูโซลูชันตาม sector เพื่อเห็นตัวอย่างปัญหา แนวทางแก้ และผลงานที่เกี่ยวข้อง
+          โดยเน้น flow สำหรับเจ้าของธุรกิจ (Option C)
+        </p>
+      </header>
+
+      <section className="grid gap-4 md:grid-cols-2">
+        {solutionSectors.map((sector) => (
+          <Link
+            key={sector.slug}
+            href={`/solutions/${sector.slug}`}
+            className="group flex flex-col rounded-xl border border-slate-200/80 bg-white/90 p-5 text-sm text-slate-800 transition hover:border-slate-300 hover:bg-white"
+          >
+            <div className="mb-3 flex items-center justify-between">
+              <h2 className="text-base font-semibold text-slate-900">
+                {sector.title}
+              </h2>
+              <span className="rounded-full bg-slate-900/70 px-2 py-[2px] font-mono text-[10px] uppercase tracking-[0.18em] text-slate-100">
+                {sector.slug}
+              </span>
+            </div>
+            <p className="text-xs leading-relaxed text-slate-700">
+              {sector.description}
+            </p>
+
+            {sector.painPoints.length > 0 ? (
+              <ul className="mt-3 space-y-1 text-[11px] leading-relaxed text-slate-700">
+                {sector.painPoints.slice(0, 3).map((item) => (
+                  <li key={item}>• {item}</li>
+                ))}
+              </ul>
+            ) : null}
+
+            <p className="mt-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-accent">
+              ดูรายละเอียด
+            </p>
+          </Link>
+        ))}
+      </section>
     </div>
   );
 }
