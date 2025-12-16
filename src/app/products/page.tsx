@@ -35,6 +35,13 @@ const personaLabels: Record<PatternPersonaKey, string> = {
   homeowner: "เจ้าของบ้าน",
 };
 
+const finishLabels = {
+  matte: "ด้าน",
+  satin: "ซาติน",
+  gloss: "เงา",
+  texture: "เท็กซ์เจอร์",
+} as const;
+
 export default function ProductsPage() {
   const [selectedSeries, setSelectedSeries] = useState<PatternSeries | null>(null);
   const [selectedSurface, setSelectedSurface] = useState<PatternSurface | null>(null);
@@ -247,7 +254,7 @@ export default function ProductsPage() {
               {pattern.name}
             </h2>
             <p className="mt-1 text-xs text-slate-700">
-              โทนสี: {pattern.colorFamily} • ผิว: {pattern.finish}
+              โทนสี: {pattern.colorFamily} • ผิว: {finishLabels[pattern.finish]}
             </p>
             <p className="mt-3 text-xs leading-relaxed text-slate-700">
               เหมาะกับพื้นผิว: {pattern.surfaces.map((surface) => surfaceLabels[surface]).join(", ")}
