@@ -48,21 +48,21 @@ export default function HomePage() {
             </div>
           </div>
           <div className="space-y-4">
-            <div className="overflow-hidden rounded-3xl border border-slate-200/80 bg-gradient-to-br from-brand-soft via-white to-brand/40 p-4 shadow-[0_18px_40px_rgba(15,23,42,0.18)]">
-              <div className="flex gap-3">
-                <div className="flex-1 space-y-3">
-                  <div className="h-32 rounded-2xl bg-brand/40 md:h-40" />
-                  <div className="flex gap-2">
-                    <div className="h-10 flex-1 rounded-xl bg-brand/25" />
-                    <div className="h-10 flex-1 rounded-xl bg-brand/10" />
-                  </div>
-                </div>
-                <div className="hidden w-20 flex-col gap-2 md:flex">
-                  <div className="h-7 rounded-full bg-brand/25" />
-                  <div className="h-7 rounded-full bg-brand/15" />
-                  <div className="h-7 rounded-full bg-brand/10" />
-                </div>
-              </div>
+            <div className="rounded-3xl border border-slate-200/80 bg-white/90 p-6 shadow-[0_18px_40px_rgba(15,23,42,0.12)]">
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-600">
+                เริ่มต้นใน 2 นาที
+              </p>
+              <ul className="mt-3 space-y-2 text-sm leading-relaxed text-slate-700">
+                <li>• ส่งรูปพื้นที่ + จุดที่จะทำ (ผนัง/ประตู/ตู้/เคาน์เตอร์)</li>
+                <li>• รับคำแนะนำลาย + แผนการติดตั้งที่เหมาะกับการใช้งานจริง</li>
+                <li>• นัดสำรวจ/ติดตั้งตามเวลาที่สะดวก</li>
+              </ul>
+              <Link
+                href="/contact"
+                className="mt-5 inline-flex w-full items-center justify-center rounded-full bg-brand-accent px-6 py-2.5 text-[11px] font-medium uppercase tracking-[0.18em] text-slate-50 transition hover:bg-brand-accent/90"
+              >
+                ขอคำปรึกษา
+              </Link>
             </div>
             <div className="rounded-2xl border border-slate-200/80 bg-brand-soft/80 p-6 text-sm text-slate-700">
               <p className="mb-3 text-xs font-semibold uppercase tracking-[0.22em] text-slate-600">
@@ -188,7 +188,7 @@ export default function HomePage() {
               โซลูชันสำหรับธุรกิจ (ตามประเภทงาน)
             </h2>
             <p className="mt-1 max-w-2xl text-sm leading-relaxed text-slate-700">
-              เริ่มจาก sector ที่พบบ่อยในช่วง validate เพื่อพาไปดูเคสจริงและปิดงานได้เร็ว
+              เลือกดูโซลูชันตามประเภทงาน พร้อมปัญหาที่พบบ่อย แนวทางแก้ และตัวอย่างงานที่เกี่ยวข้อง
             </p>
           </div>
           <Link
@@ -210,9 +210,6 @@ export default function HomePage() {
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-600">
                   {sector.title}
                 </p>
-                <span className="rounded-full bg-slate-900/70 px-2 py-[2px] font-mono text-[10px] uppercase tracking-[0.18em] text-slate-100">
-                  {sector.slug}
-                </span>
               </div>
               <p className="mt-2 text-sm leading-relaxed text-slate-700">
                 {sector.description}
@@ -230,8 +227,7 @@ export default function HomePage() {
           ตัวอย่างเคสรีโนเวท
         </h2>
         <p className="max-w-2xl text-sm leading-relaxed text-slate-700">
-          เรากำลังรวบรวม case study จริงของ Zenta
-          ให้คุณเห็นทั้งภาพก่อน–หลัง เรื่องราวของแต่ละโปรเจกต์ และลายฟิล์มที่ใช้ในงานนั้น ๆ
+          ดูตัวอย่างงานรีโนเวทและผลลัพธ์ที่ได้ พร้อมลายฟิล์มที่ใช้ในแต่ละโปรเจกต์
         </p>
         <div className="grid gap-4 md:grid-cols-3">
           {demoCaseStudies.slice(0, 3).map((cs) => {
@@ -315,18 +311,23 @@ export default function HomePage() {
 
       <section className="container space-y-3">
         <h2 className="text-lg font-semibold tracking-tight md:text-xl">
-          ความน่าเชื่อถือ &amp; พาร์ตเนอร์
+          พร้อมเริ่มรีโนเวทพื้นที่ของคุณ?
         </h2>
         <p className="max-w-2xl text-sm leading-relaxed text-slate-700">
-          ส่วนนี้จะใช้แสดงโลโก้ลูกค้า แบรนด์พาร์ตเนอร์ และข้อความรับรอง
-          เพื่อให้คุณเห็นตัวอย่างธุรกิจที่เลือกใช้ Zenta ควบคู่กับผู้เล่นระดับสากลอย่าง BODAQ, 3M และ TODA
+          ส่งรูปพื้นที่และบอกจุดที่จะทำ ทีมงานจะช่วยแนะนำลาย วางแผนการติดตั้ง และประเมินงบ/ระยะเวลาให้เหมาะกับการใช้งานจริง
         </p>
-        <div>
+        <div className="flex flex-col gap-2 sm:flex-row">
           <Link
             href="/contact"
             className="inline-flex items-center justify-center rounded-full bg-brand-accent px-6 py-2.5 text-[11px] font-medium uppercase tracking-[0.18em] text-slate-50 transition hover:bg-brand-accent/90"
           >
             ขอคำปรึกษา / นัดสำรวจ
+          </Link>
+          <Link
+            href="/solutions"
+            className="inline-flex items-center justify-center rounded-full border border-slate-200/80 bg-white px-6 py-2.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-700 transition hover:border-slate-300"
+          >
+            ดูโซลูชันตามประเภทงาน
           </Link>
         </div>
       </section>

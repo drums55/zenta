@@ -4,8 +4,25 @@ import { notFound } from "next/navigation";
 
 import { TrackEvent } from "@/components/analytics/track-event";
 import { demoCaseStudies } from "@/data/case-studies";
-import { demoPatterns } from "@/data/patterns";
+import { demoPatterns, type Pattern, type PatternSeries } from "@/data/patterns";
 import { getSolutionSector, solutionSectors } from "@/data/solutions";
+
+const seriesLabels: Record<PatternSeries, string> = {
+  wood: "ลายไม้",
+  stone: "ลายหิน",
+  concrete: "ลายปูน",
+  metal: "ลายโลหะ",
+  solid: "สีพื้น",
+  "soft-matte": "Soft Matte",
+  gloss: "Gloss",
+};
+
+const finishLabels: Record<Pattern["finish"], string> = {
+  matte: "ด้าน",
+  satin: "ซาติน",
+  gloss: "เงา",
+  texture: "เท็กซ์เจอร์",
+};
 
 export function generateMetadata({
   params,
@@ -64,11 +81,6 @@ export default function SolutionSectorPage({
       </nav>
 
       <header className="space-y-3">
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="rounded-full bg-slate-900/70 px-2 py-[2px] font-mono text-[10px] uppercase tracking-[0.18em] text-slate-100">
-            {sector.slug}
-          </span>
-        </div>
         <h1 className="text-2xl font-semibold tracking-tight md:text-3xl">
           {sector.title}
         </h1>
@@ -105,7 +117,6 @@ export default function SolutionSectorPage({
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-600">
               ผลงานที่เกี่ยวข้อง
             </p>
-
             {caseStudies.length > 0 ? (
               <div className="mt-4 grid gap-3 md:grid-cols-2">
                 {caseStudies.map((cs) => (
@@ -114,11 +125,13 @@ export default function SolutionSectorPage({
                     href={`/case-studies/${cs.slug}`}
                     className="rounded-xl border border-slate-200/80 bg-brand-soft/40 p-4 text-sm text-slate-800 transition hover:border-slate-300 hover:bg-brand-soft/60"
                   >
-                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-600">
-                      {cs.sector}
-                    </p>
-                    <p className="mt-2 font-semibold text-slate-900">{cs.title}</p>
-                    <p className="mt-1 text-[11px] leading-relaxed text-slate-600">
+                    <p className="font-semibold text-slate-900">{cs.title}</p>
+                    {cs.location ? (
+                      <p className="mt-1 text-[11px] text-slate-500">
+                        {cs.location}
+                      </p>
+                    ) : null}
+                    <p className="mt-2 text-[11px] leading-relaxed text-slate-600">
                       {cs.summary}
                     </p>
                     <p className="mt-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-accent">
@@ -127,19 +140,15 @@ export default function SolutionSectorPage({
                   </Link>
                 ))}
               </div>
-            ) : (
-              <p className="mt-3 text-sm leading-relaxed text-slate-700">
-                กำลังรวบรวม case study สำหรับ sector นี้เพิ่มเติม
-              </p>
-            )}
+            ) : null}
           </div>
 
-          <div className="rounded-2xl border border-slate-200/80 bg-white/90 p-5">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-600">
-              ลายที่แนะนำ (เบื้องต้น)
-            </p>
+          {recommendedPatterns.length > 0 ? (
+            <div className="rounded-2xl border border-slate-200/80 bg-white/90 p-5">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-600">
+                ลายที่แนะนำ
+              </p>
 
-            {recommendedPatterns.length > 0 ? (
               <div className="mt-4 grid gap-3 md:grid-cols-2">
                 {recommendedPatterns.map((pattern) => (
                   <Link
@@ -152,22 +161,18 @@ export default function SolutionSectorPage({
                         {pattern.code}
                       </span>
                       <span className="rounded-full bg-slate-900/70 px-2 py-[2px] text-[10px] uppercase tracking-[0.18em] text-slate-100">
-                        {pattern.series}
+                        {seriesLabels[pattern.series]}
                       </span>
                     </div>
                     <p className="mt-2 font-semibold text-slate-900">{pattern.name}</p>
                     <p className="mt-1 text-[11px] text-slate-600">
-                      โทนสี: {pattern.colorFamily} • ผิว: {pattern.finish}
+                      ผิว: {finishLabels[pattern.finish]}
                     </p>
                   </Link>
                 ))}
               </div>
-            ) : (
-              <p className="mt-3 text-sm leading-relaxed text-slate-700">
-                กำลังจัดหมวดหมู่ลายที่เหมาะกับ sector นี้
-              </p>
-            )}
-          </div>
+            </div>
+          ) : null}
         </div>
 
         <aside className="space-y-4">
@@ -184,17 +189,6 @@ export default function SolutionSectorPage({
             >
               ขอคำปรึกษา / นัดสำรวจ
             </Link>
-          </div>
-
-          <div className="rounded-2xl border border-slate-200/80 bg-white/90 p-6 text-sm text-slate-700">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-600">
-              ต่อไปจะเติมอะไร
-            </p>
-            <ul className="mt-3 space-y-1 text-sm leading-relaxed">
-              <li>• เพิ่ม FAQ เฉพาะ sector</li>
-              <li>• เพิ่ม timeline/downtime ที่คาดหวัง</li>
-              <li>• เพิ่มภาพและ case studies จริง</li>
-            </ul>
           </div>
         </aside>
       </section>

@@ -10,8 +10,7 @@ export default function SolutionsPage() {
           โซลูชันตามประเภทงาน
         </h1>
         <p className="max-w-2xl text-sm leading-relaxed text-slate-700 md:text-base">
-          เลือกดูโซลูชันตาม sector เพื่อเห็นตัวอย่างปัญหา แนวทางแก้ และผลงานที่เกี่ยวข้อง
-          โดยเน้น flow สำหรับเจ้าของธุรกิจ (Option C)
+          เลือกดูโซลูชันตามประเภทงาน เพื่อเห็นปัญหาที่พบบ่อย แนวทางแก้ และผลงานที่เกี่ยวข้อง
         </p>
       </header>
 
@@ -26,9 +25,6 @@ export default function SolutionsPage() {
               <h2 className="text-base font-semibold text-slate-900">
                 {sector.title}
               </h2>
-              <span className="rounded-full bg-slate-900/70 px-2 py-[2px] font-mono text-[10px] uppercase tracking-[0.18em] text-slate-100">
-                {sector.slug}
-              </span>
             </div>
             <p className="text-xs leading-relaxed text-slate-700">
               {sector.description}

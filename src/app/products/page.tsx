@@ -91,7 +91,7 @@ export default function ProductsPage() {
         </h1>
         <p className="max-w-2xl text-sm leading-relaxed text-slate-700 md:text-base">
           เลือกดูตัวอย่างลายฟิล์มตกแต่งภายในจาก Zenta พร้อมโทนสี พื้นผิว และประเภทงานที่เหมาะสม
-          ลายและข้อมูลจะถูกเติมเข้ามาเรื่อย ๆ ตามโปรเจกต์และคอลเลกชันใหม่ ๆ
+          ใช้ตัวกรองเพื่อคัดลายให้ตรงกับพื้นที่ของคุณ
         </p>
       </header>
 
@@ -240,7 +240,7 @@ export default function ProductsPage() {
                 {pattern.code}
               </span>
               <span className="rounded-full bg-slate-900/70 px-2 py-[2px] text-[10px] uppercase tracking-[0.18em] text-slate-100">
-                {pattern.series}
+                {seriesLabels[pattern.series]}
               </span>
             </div>
             <h2 className="text-base font-semibold leading-snug text-slate-900">
@@ -250,10 +250,10 @@ export default function ProductsPage() {
               โทนสี: {pattern.colorFamily} • ผิว: {pattern.finish}
             </p>
             <p className="mt-3 text-xs leading-relaxed text-slate-700">
-              เหมาะกับพื้นผิว: {pattern.surfaces.join(", ")}
+              เหมาะกับพื้นผิว: {pattern.surfaces.map((surface) => surfaceLabels[surface]).join(", ")}
             </p>
             <p className="mt-1 text-[11px] leading-relaxed text-slate-600">
-              เหมาะสำหรับ: {pattern.recommendedFor.join(", ")}
+              เหมาะสำหรับ: {pattern.recommendedFor.map((persona) => personaLabels[persona]).join(", ")}
             </p>
             <p className="mt-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-accent">
               ดูรายละเอียด

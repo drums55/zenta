@@ -4,12 +4,35 @@ import { notFound } from "next/navigation";
 
 import { TrackEvent } from "@/components/analytics/track-event";
 import { demoCaseStudies } from "@/data/case-studies";
-import { demoPatterns, type Pattern, type PatternPersonaKey } from "@/data/patterns";
+import {
+  demoPatterns,
+  type Pattern,
+  type PatternPersonaKey,
+  type PatternSeries,
+} from "@/data/patterns";
+import { solutionSectors } from "@/data/solutions";
 
 const personaLabels: Record<PatternPersonaKey, string> = {
   businessOwner: "เจ้าของธุรกิจ",
   designer: "นักออกแบบ/สถาปนิก",
   homeowner: "เจ้าของบ้าน",
+};
+
+const seriesLabels: Record<PatternSeries, string> = {
+  wood: "ลายไม้",
+  stone: "ลายหิน",
+  concrete: "ลายปูน",
+  metal: "ลายโลหะ",
+  solid: "สีพื้น",
+  "soft-matte": "Soft Matte",
+  gloss: "Gloss",
+};
+
+const finishLabels: Record<Pattern["finish"], string> = {
+  matte: "ด้าน",
+  satin: "ซาติน",
+  gloss: "เงา",
+  texture: "เท็กซ์เจอร์",
 };
 
 export function generateMetadata({
@@ -50,6 +73,10 @@ export default function CaseStudyDetailPage({
     .map((id) => demoPatterns.find((pattern) => pattern.id === id))
     .filter((pattern): pattern is Pattern => Boolean(pattern));
 
+  const sectorTitle =
+    solutionSectors.find((item) => item.slug === caseStudy.sector)?.title ??
+    caseStudy.sector;
+
   return (
     <div className="container space-y-8 py-10">
       <TrackEvent
@@ -66,9 +93,12 @@ export default function CaseStudyDetailPage({
 
       <header className="space-y-3">
         <div className="flex flex-wrap items-center gap-2 text-xs text-slate-600">
-          <span className="rounded-full bg-slate-900/70 px-2 py-[2px] text-[10px] uppercase tracking-[0.18em] text-slate-100">
-            {caseStudy.sector}
-          </span>
+          <Link
+            href={`/solutions/${caseStudy.sector}`}
+            className="rounded-full bg-slate-900/70 px-2 py-[2px] text-[10px] tracking-[0.18em] text-slate-100 transition hover:bg-slate-900"
+          >
+            {sectorTitle}
+          </Link>
           {caseStudy.location ? (
             <span className="text-[11px] text-slate-500">{caseStudy.location}</span>
           ) : null}
@@ -88,8 +118,6 @@ export default function CaseStudyDetailPage({
 
       <section className="grid gap-6 md:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]">
         <div className="space-y-4">
-          <div className="aspect-[16/10] w-full overflow-hidden rounded-2xl border border-slate-200/80 bg-gradient-to-br from-brand-soft via-white to-brand/40" />
-
           {caseStudy.outcomes.length > 0 ? (
             <div className="rounded-2xl border border-slate-200/80 bg-white/90 p-5">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-600">
@@ -100,35 +128,6 @@ export default function CaseStudyDetailPage({
                   <li key={item}>• {item}</li>
                 ))}
               </ul>
-            </div>
-          ) : null}
-
-          {caseStudy.images.length > 0 ? (
-            <div className="rounded-2xl border border-slate-200/80 bg-white/90 p-5">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-600">
-                ภาพประกอบ (placeholder)
-              </p>
-              <div className="mt-4 grid gap-3 md:grid-cols-2">
-                {caseStudy.images.map((image) => (
-                  <div
-                    key={`${image.src}-${image.alt}`}
-                    className="overflow-hidden rounded-xl border border-slate-200/80 bg-white"
-                  >
-                    <div className="aspect-[16/10] bg-gradient-to-br from-brand-soft via-white to-brand/40" />
-                    <div className="space-y-1 p-3 text-xs text-slate-700">
-                      <div className="flex items-center justify-between">
-                        <span className="font-medium text-slate-900">
-                          {image.kind ?? "image"}
-                        </span>
-                        <span className="text-[11px] text-slate-500">{image.src}</span>
-                      </div>
-                      <p className="text-[11px] leading-relaxed text-slate-600">
-                        {image.alt}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
             </div>
           ) : null}
 
@@ -149,12 +148,12 @@ export default function CaseStudyDetailPage({
                         {pattern.code}
                       </span>
                       <span className="rounded-full bg-slate-900/70 px-2 py-[2px] text-[10px] uppercase tracking-[0.18em] text-slate-100">
-                        {pattern.series}
+                        {seriesLabels[pattern.series]}
                       </span>
                     </div>
                     <p className="mt-2 font-semibold text-slate-900">{pattern.name}</p>
                     <p className="mt-1 text-[11px] text-slate-600">
-                      โทนสี: {pattern.colorFamily} • ผิว: {pattern.finish}
+                      โทนสี: {pattern.colorFamily} • ผิว: {finishLabels[pattern.finish]}
                     </p>
                   </Link>
                 ))}
@@ -177,16 +176,6 @@ export default function CaseStudyDetailPage({
             >
               ขอคำปรึกษา / นัดสำรวจ
             </Link>
-          </div>
-
-          <div className="rounded-2xl border border-slate-200/80 bg-white/90 p-6 text-sm text-slate-700">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-600">
-              หมายเหตุ
-            </p>
-            <p className="mt-2 leading-relaxed">
-              เนื้อหา case study จะถูกเติมรายละเอียด (timeline, ข้อจำกัด, before/after) เพิ่มขึ้นเรื่อย ๆ
-              เมื่อมีโปรเจกต์จริงมากขึ้น
-            </p>
           </div>
         </aside>
       </section>

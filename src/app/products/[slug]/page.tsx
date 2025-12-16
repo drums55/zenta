@@ -3,7 +3,45 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { TrackEvent } from "@/components/analytics/track-event";
-import { demoPatterns } from "@/data/patterns";
+import {
+  demoPatterns,
+  type Pattern,
+  type PatternPersonaKey,
+  type PatternSeries,
+  type PatternSurface,
+} from "@/data/patterns";
+
+const seriesLabels: Record<PatternSeries, string> = {
+  wood: "ลายไม้",
+  stone: "ลายหิน",
+  concrete: "ลายปูน",
+  metal: "ลายโลหะ",
+  solid: "สีพื้น",
+  "soft-matte": "Soft Matte",
+  gloss: "Gloss",
+};
+
+const surfaceLabels: Record<PatternSurface, string> = {
+  wall: "ผนัง",
+  door: "ประตู/บาน",
+  cabinet: "ตู้",
+  countertop: "เคาน์เตอร์",
+  column: "เสา",
+  other: "อื่น ๆ",
+};
+
+const personaLabels: Record<PatternPersonaKey, string> = {
+  businessOwner: "เจ้าของธุรกิจ",
+  designer: "นักออกแบบ/สถาปนิก",
+  homeowner: "เจ้าของบ้าน",
+};
+
+const finishLabels: Record<Pattern["finish"], string> = {
+  matte: "ด้าน",
+  satin: "ซาติน",
+  gloss: "เงา",
+  texture: "เท็กซ์เจอร์",
+};
 
 export function generateMetadata({
   params,
@@ -20,7 +58,9 @@ export function generateMetadata({
 
   return {
     title: pattern.name,
-    description: `ฟิล์มตกแต่งภายใน ${pattern.name} (${pattern.code}) ซีรีส์ ${pattern.series} โทนสี ${pattern.colorFamily} ผิว ${pattern.finish} เหมาะกับ ${pattern.surfaces.join(", ")}`,
+    description: `ฟิล์มตกแต่งภายใน ${pattern.name} (${pattern.code}) ${seriesLabels[pattern.series]} โทนสี ${pattern.colorFamily} ผิว${finishLabels[pattern.finish]} เหมาะกับ ${pattern.surfaces
+      .map((surface) => surfaceLabels[surface])
+      .join(", ")}`,
   };
 }
 
@@ -59,14 +99,14 @@ export default function ProductDetailPage({
             {pattern.code}
           </span>
           <span className="rounded-full bg-slate-900/70 px-2 py-[2px] text-[10px] uppercase tracking-[0.18em] text-slate-100">
-            {pattern.series}
+            {seriesLabels[pattern.series]}
           </span>
         </div>
         <h1 className="text-2xl font-semibold tracking-tight md:text-3xl">
           {pattern.name}
         </h1>
         <p className="max-w-2xl text-sm leading-relaxed text-slate-700 md:text-base">
-          โทนสี: {pattern.colorFamily} • ผิว: {pattern.finish}
+          โทนสี: {pattern.colorFamily} • ผิว: {finishLabels[pattern.finish]}
         </p>
       </header>
 
@@ -80,7 +120,7 @@ export default function ProductDetailPage({
                 เหมาะกับพื้นผิว
               </p>
               <p className="mt-2 text-sm text-slate-700">
-                {pattern.surfaces.join(", ")}
+                {pattern.surfaces.map((surface) => surfaceLabels[surface]).join(", ")}
               </p>
             </div>
             <div className="rounded-2xl border border-slate-200/80 bg-white/90 p-5">
@@ -88,7 +128,9 @@ export default function ProductDetailPage({
                 เหมาะสำหรับ
               </p>
               <p className="mt-2 text-sm text-slate-700">
-                {pattern.recommendedFor.join(", ")}
+                {pattern.recommendedFor
+                  .map((persona) => personaLabels[persona])
+                  .join(", ")}
               </p>
             </div>
           </div>
@@ -120,15 +162,6 @@ export default function ProductDetailPage({
             >
               ขอคำปรึกษา / ใบเสนอราคา
             </Link>
-          </div>
-
-          <div className="rounded-2xl border border-slate-200/80 bg-white/90 p-6 text-sm text-slate-700">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-600">
-              หมายเหตุ
-            </p>
-            <p className="mt-2 leading-relaxed">
-              รายการลายและข้อมูลสเปกจะถูกเติมเพิ่มเรื่อย ๆ ระหว่างเก็บเคสจริงและคอลเลกชันใหม่
-            </p>
           </div>
         </aside>
       </section>
