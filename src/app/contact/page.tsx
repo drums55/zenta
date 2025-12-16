@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useState, type FormEvent } from "react";
+import { Suspense, useEffect, useMemo, useState, type FormEvent } from "react";
 
 import { trackEvent } from "@/lib/analytics";
 import { solutionSectors } from "@/data/solutions";
@@ -52,7 +52,7 @@ function errorMessage(code: string) {
   }
 }
 
-export default function ContactPage() {
+function ContactPageContent() {
   const searchParams = useSearchParams();
 
   const [leadType, setLeadType] = useState<LeadType>("business");
@@ -421,5 +421,13 @@ export default function ContactPage() {
         </form>
       )}
     </div>
+  );
+}
+
+export default function ContactPage() {
+  return (
+    <Suspense fallback={<div className="container py-10" />}>
+      <ContactPageContent />
+    </Suspense>
   );
 }
