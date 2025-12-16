@@ -24,12 +24,13 @@ const finishLabels: Record<Pattern["finish"], string> = {
   texture: "เท็กซ์เจอร์",
 };
 
-export function generateMetadata({
+export async function generateMetadata({
   params,
 }: {
-  params: { sector: string };
-}): Metadata {
-  const sector = getSolutionSector(params.sector);
+  params: Promise<{ sector: string }>;
+}): Promise<Metadata> {
+  const { sector: sectorSlug } = await params;
+  const sector = getSolutionSector(sectorSlug);
 
   if (!sector) {
     return {
@@ -47,12 +48,13 @@ export function generateStaticParams() {
   return solutionSectors.map((sector) => ({ sector: sector.slug }));
 }
 
-export default function SolutionSectorPage({
+export default async function SolutionSectorPage({
   params,
 }: {
-  params: { sector: string };
+  params: Promise<{ sector: string }>;
 }) {
-  const sector = getSolutionSector(params.sector);
+  const { sector: sectorSlug } = await params;
+  const sector = getSolutionSector(sectorSlug);
 
   if (!sector) {
     notFound();

@@ -43,12 +43,13 @@ const finishLabels: Record<Pattern["finish"], string> = {
   texture: "เท็กซ์เจอร์",
 };
 
-export function generateMetadata({
+export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
-}): Metadata {
-  const pattern = demoPatterns.find((item) => item.slug === params.slug);
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const pattern = demoPatterns.find((item) => item.slug === slug);
 
   if (!pattern) {
     return {
@@ -68,12 +69,13 @@ export function generateStaticParams() {
   return demoPatterns.map((pattern) => ({ slug: pattern.slug }));
 }
 
-export default function ProductDetailPage({
+export default async function ProductDetailPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const pattern = demoPatterns.find((item) => item.slug === params.slug);
+  const { slug } = await params;
+  const pattern = demoPatterns.find((item) => item.slug === slug);
 
   if (!pattern) {
     notFound();

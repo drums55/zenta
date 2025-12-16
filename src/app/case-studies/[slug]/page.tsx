@@ -35,12 +35,13 @@ const finishLabels: Record<Pattern["finish"], string> = {
   texture: "เท็กซ์เจอร์",
 };
 
-export function generateMetadata({
+export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
-}): Metadata {
-  const caseStudy = demoCaseStudies.find((item) => item.slug === params.slug);
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const caseStudy = demoCaseStudies.find((item) => item.slug === slug);
 
   if (!caseStudy) {
     return {
@@ -58,12 +59,13 @@ export function generateStaticParams() {
   return demoCaseStudies.map((cs) => ({ slug: cs.slug }));
 }
 
-export default function CaseStudyDetailPage({
+export default async function CaseStudyDetailPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const caseStudy = demoCaseStudies.find((item) => item.slug === params.slug);
+  const { slug } = await params;
+  const caseStudy = demoCaseStudies.find((item) => item.slug === slug);
 
   if (!caseStudy) {
     notFound();
