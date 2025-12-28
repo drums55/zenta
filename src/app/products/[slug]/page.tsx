@@ -1,47 +1,18 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 
 import { TrackEvent } from "@/components/analytics/track-event";
-import {
-  demoPatterns,
-  type Pattern,
-  type PatternPersonaKey,
-  type PatternSeries,
-  type PatternSurface,
-} from "@/data/patterns";
+import { isDbConfigured } from "@/lib/db/connection";
+import { getPublishedCmsContentByTypeAndSlug } from "@/lib/db/queries/cms";
 
-const seriesLabels: Record<PatternSeries, string> = {
-  wood: "ลายไม้",
-  stone: "ลายหิน",
-  concrete: "ลายปูน",
-  metal: "ลายโลหะ",
-  solid: "สีพื้น",
-  "soft-matte": "Soft Matte",
-  gloss: "Gloss",
-};
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
-const surfaceLabels: Record<PatternSurface, string> = {
-  wall: "ผนัง",
-  door: "ประตู/บาน",
-  cabinet: "ตู้",
-  countertop: "เคาน์เตอร์",
-  column: "เสา",
-  other: "อื่น ๆ",
-};
-
-const personaLabels: Record<PatternPersonaKey, string> = {
-  businessOwner: "เจ้าของธุรกิจ",
-  designer: "นักออกแบบ/สถาปนิก",
-  homeowner: "เจ้าของบ้าน",
-};
-
-const finishLabels: Record<Pattern["finish"], string> = {
-  matte: "ด้าน",
-  satin: "ซาติน",
-  gloss: "เงา",
-  texture: "เท็กซ์เจอร์",
-};
+function formatBangkok(iso: string): string {
+  return new Date(iso).toLocaleDateString("th-TH", { timeZone: "Asia/Bangkok" });
+}
 
 export async function generateMetadata({
   params,
@@ -49,24 +20,25 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const pattern = demoPatterns.find((item) => item.slug === slug);
 
-  if (!pattern) {
-    return {
-      title: "ไม่พบผลิตภัณฑ์",
-    };
+  if (!isDbConfigured()) {
+    return { title: "ผลิตภัณฑ์ Zenta Interior Film" };
+  }
+
+  const product = await getPublishedCmsContentByTypeAndSlug({ type: "product", slug });
+  if (!product) {
+    return { title: "ไม่พบผลิตภัณฑ์" };
   }
 
   return {
-    title: pattern.name,
-    description: `ฟิล์มตกแต่งภายใน ${pattern.name} (${pattern.code}) ${seriesLabels[pattern.series]} โทนสี ${pattern.colorFamily} ผิว${finishLabels[pattern.finish]} เหมาะกับ ${pattern.surfaces
-      .map((surface) => surfaceLabels[surface])
-      .join(", ")}`,
+    title: product.seoTitle || product.title,
+    description: product.seoDescription || product.summary || undefined,
+    openGraph: {
+      title: product.seoTitle || product.title,
+      description: product.seoDescription || product.summary || undefined,
+      images: product.ogImageUrl ? [product.ogImageUrl] : product.coverImageUrl ? [product.coverImageUrl] : undefined,
+    },
   };
-}
-
-export function generateStaticParams() {
-  return demoPatterns.map((pattern) => ({ slug: pattern.slug }));
 }
 
 export default async function ProductDetailPage({
@@ -75,78 +47,64 @@ export default async function ProductDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const pattern = demoPatterns.find((item) => item.slug === slug);
+  if (!isDbConfigured()) {
+    notFound();
+  }
 
-  if (!pattern) {
+  const product = await getPublishedCmsContentByTypeAndSlug({ type: "product", slug });
+  if (!product) {
     notFound();
   }
 
   return (
     <div className="container space-y-8 py-10">
       <TrackEvent
-        name="view_pattern_detail"
-        params={{ slug: pattern.slug, series: pattern.series }}
+        name="view_product_detail"
+        params={{ slug: product.slug }}
       />
       <nav className="text-xs text-slate-600">
         <Link href="/products" className="transition-colors hover:text-foreground">
           ผลิตภัณฑ์
         </Link>
         <span className="mx-2 text-slate-400">/</span>
-        <span className="text-slate-500">{pattern.name}</span>
+        <span className="text-slate-500">{product.title}</span>
       </nav>
 
       <header className="space-y-3">
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-slate-600">
-            {pattern.code}
-          </span>
-          <span className="rounded-full bg-slate-900/70 px-2 py-[2px] text-[10px] uppercase tracking-[0.18em] text-slate-100">
-            {seriesLabels[pattern.series]}
-          </span>
-        </div>
         <h1 className="text-2xl font-semibold tracking-tight md:text-3xl">
-          {pattern.name}
+          {product.title}
         </h1>
-        <p className="max-w-2xl text-sm leading-relaxed text-slate-700 md:text-base">
-          โทนสี: {pattern.colorFamily} • ผิว: {finishLabels[pattern.finish]}
-        </p>
+
+        {product.publishedAt ? (
+          <p className="text-[11px] text-slate-500">เผยแพร่: {formatBangkok(product.publishedAt)}</p>
+        ) : null}
+
+        {product.summary ? (
+          <p className="max-w-3xl text-sm leading-relaxed text-slate-700 md:text-base">{product.summary}</p>
+        ) : null}
       </header>
 
       <section className="grid gap-6 md:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]">
         <div className="space-y-4">
-          <div className="aspect-[16/10] w-full overflow-hidden rounded-2xl border border-slate-200/80 bg-gradient-to-br from-brand-soft via-white to-brand/40" />
-
-          <div className="grid gap-3 md:grid-cols-2">
-            <div className="rounded-2xl border border-slate-200/80 bg-white/90 p-5">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-600">
-                เหมาะกับพื้นผิว
-              </p>
-              <p className="mt-2 text-sm text-slate-700">
-                {pattern.surfaces.map((surface) => surfaceLabels[surface]).join(", ")}
-              </p>
+          {product.coverImageUrl ? (
+            <div className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white/90">
+              <Image
+                src={product.coverImageUrl}
+                alt={product.coverImageAlt || product.title}
+                width={1600}
+                height={900}
+                className="h-auto w-full object-cover"
+                priority
+              />
             </div>
-            <div className="rounded-2xl border border-slate-200/80 bg-white/90 p-5">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-600">
-                เหมาะสำหรับ
-              </p>
-              <p className="mt-2 text-sm text-slate-700">
-                {pattern.recommendedFor
-                  .map((persona) => personaLabels[persona])
-                  .join(", ")}
-              </p>
-            </div>
-          </div>
+          ) : null}
 
-          <div className="rounded-2xl border border-slate-200/80 bg-white/90 p-5">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-600">
-              จุดเด่น
-            </p>
-            <ul className="mt-3 space-y-1 text-sm leading-relaxed text-slate-700">
-              {pattern.features.map((feature) => (
-                <li key={feature}>• {feature}</li>
-              ))}
-            </ul>
-          </div>
+          {product.bodyHtml ? (
+            <article
+              className="prose prose-slate max-w-none rounded-2xl border border-slate-200/80 bg-white/90 p-6 prose-headings:tracking-tight"
+              dangerouslySetInnerHTML={{ __html: product.bodyHtml }}
+            />
+          ) : null}
         </div>
 
         <aside className="space-y-4">

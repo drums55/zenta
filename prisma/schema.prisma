@@ -7,6 +7,67 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model CmsAsset {
+  Id              Int               @id(map: "PK_CmsAsset") @default(autoincrement())
+  Bucket          String            @db.NVarChar(200)
+  StoragePath     String            @db.NVarChar(512)
+  PublicUrl       String
+  FileName        String            @db.NVarChar(300)
+  ContentType     String            @db.NVarChar(200)
+  SizeBytes       BigInt
+  Width           Int?
+  Height          Int?
+  AltText         String?           @db.NVarChar(300)
+  UploadedBy      String?           @db.NVarChar(100)
+  CreatedAt       DateTime          @default(dbgenerated("sysutcdatetime()"), map: "DF_CmsAsset_CreatedAt")
+  CmsContentAsset CmsContentAsset[]
+
+  @@unique([Bucket, StoragePath], map: "UQ_CmsAsset_Bucket_StoragePath")
+  @@index([ContentType], map: "IX_CmsAsset_ContentType")
+  @@index([CreatedAt(sort: Desc)], map: "IX_CmsAsset_CreatedAt")
+}
+
+model CmsContent {
+  Id              Int               @id(map: "PK_CmsContent") @default(autoincrement())
+  ContentKey      String            @unique(map: "UQ_CmsContent_ContentKey") @db.UniqueIdentifier
+  Type            String            @db.NVarChar(20)
+  Slug            String            @db.NVarChar(200)
+  Title           String            @db.NVarChar(300)
+  Summary         String?
+  CoverImageUrl   String?
+  CoverImageAlt   String?           @db.NVarChar(300)
+  SeoTitle        String?           @db.NVarChar(300)
+  SeoDescription  String?
+  OgImageUrl      String?
+  BodyJson        String?           @db.NVarChar(Max)
+  BodyHtml        String?           @db.NVarChar(Max)
+  Status          String            @db.NVarChar(20)
+  PublishedAt     DateTime?
+  ScheduledAt     DateTime?
+  CreatedBy       String?           @db.NVarChar(100)
+  UpdatedBy       String?           @db.NVarChar(100)
+  CreatedAt       DateTime          @default(dbgenerated("sysutcdatetime()"), map: "DF_CmsContent_CreatedAt")
+  UpdatedAt       DateTime          @default(dbgenerated("sysutcdatetime()"), map: "DF_CmsContent_UpdatedAt")
+  CmsContentAsset CmsContentAsset[]
+
+  @@unique([Type, Slug], map: "UX_CmsContent_Type_Slug")
+  @@index([Type, Status, UpdatedAt(sort: Desc)], map: "IX_CmsContent_Type_Status_UpdatedAt")
+}
+
+model CmsContentAsset {
+  Id         Int        @id(map: "PK_CmsContentAsset") @default(autoincrement())
+  ContentId  Int
+  AssetId    Int
+  Role       String     @db.NVarChar(30)
+  SortOrder  Int        @default(0, map: "DF_CmsContentAsset_SortOrder")
+  CreatedAt  DateTime   @default(dbgenerated("sysutcdatetime()"), map: "DF_CmsContentAsset_CreatedAt")
+  CmsAsset   CmsAsset   @relation(fields: [AssetId], references: [Id], onDelete: Cascade, onUpdate: NoAction, map: "FK_CmsContentAsset_Asset")
+  CmsContent CmsContent @relation(fields: [ContentId], references: [Id], onDelete: Cascade, onUpdate: NoAction, map: "FK_CmsContentAsset_Content")
+
+  @@unique([ContentId, AssetId, Role], map: "UX_CmsContentAsset_Content_Asset_Role")
+  @@index([ContentId, Role, SortOrder], map: "IX_CmsContentAsset_Content_Role_Sort")
+}
+
 model Lead {
   Id         Int       @id(map: "PK_Lead") @default(autoincrement())
   Type       String    @db.NVarChar(20)
