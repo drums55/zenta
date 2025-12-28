@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import NextLink from "next/link";
 import Image from "next/image";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import Link from "@tiptap/extension-link";
+import TiptapLink from "@tiptap/extension-link";
 import TiptapImage from "@tiptap/extension-image";
 
 import type { CmsContentRow } from "@/lib/db/queries/cms";
@@ -60,7 +61,7 @@ export function ContentEditor(props: { initialContent: CmsContentRow; initialAss
   const editor = useEditor({
     extensions: [
       StarterKit,
-      Link.configure({ openOnClick: false }),
+      TiptapLink.configure({ openOnClick: false }),
       TiptapImage.configure({ allowBase64: false }),
     ],
     content: initialContent.bodyJson ? JSON.parse(initialContent.bodyJson) : "",
@@ -603,9 +604,9 @@ export function ContentEditor(props: { initialContent: CmsContentRow; initialAss
       </div>
 
       <div className="text-sm text-neutral-700">
-        <Link href="/admin/content" className="font-medium text-neutral-900 underline">
+        <NextLink href="/admin/content" className="font-medium text-neutral-900 underline">
           Back
-        </Link>
+        </NextLink>
       </div>
     </div>
   );
