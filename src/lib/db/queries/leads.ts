@@ -31,7 +31,14 @@ export interface LeadRow {
   budgetBand: string | null;
   message: string | null;
   receivedAt: string;
+  status: string;
+  note: string | null;
+  handledBy: string | null;
+  handledAt: string | null;
+  updatedAt: string | null;
 }
+
+export type LeadStatus = "new" | "contacted" | "quoted" | "won" | "lost";
 
 export async function insertLead(input: LeadInsertInput): Promise<number | null> {
   const pool = await getPool();
@@ -111,7 +118,12 @@ export async function getLatestLeads(limit = 100): Promise<LeadRow[]> {
           Timeline,
           BudgetBand,
           [Message],
-          ReceivedAt
+          ReceivedAt,
+          Status,
+          Note,
+          HandledBy,
+          HandledAt,
+          UpdatedAt
         FROM Lead
         ORDER BY ReceivedAt DESC, Id DESC;
       `,
@@ -133,5 +145,56 @@ export async function getLatestLeads(limit = 100): Promise<LeadRow[]> {
     receivedAt: row.ReceivedAt instanceof Date
       ? row.ReceivedAt.toISOString()
       : new Date(row.ReceivedAt as string).toISOString(),
+    status: (row.Status ?? "new") as string,
+    note: (row.Note ?? null) as string | null,
+    handledBy: (row.HandledBy ?? null) as string | null,
+    handledAt: row.HandledAt
+      ? row.HandledAt instanceof Date
+        ? row.HandledAt.toISOString()
+        : new Date(row.HandledAt as string).toISOString()
+      : null,
+    updatedAt: row.UpdatedAt
+      ? row.UpdatedAt instanceof Date
+        ? row.UpdatedAt.toISOString()
+        : new Date(row.UpdatedAt as string).toISOString()
+      : null,
   }));
+}
+
+export async function updateLeadManagement(input: {
+  id: number;
+  status: LeadStatus;
+  note: string | null;
+  noteIsSet: boolean;
+  handledBy: string;
+}): Promise<boolean> {
+  const pool = await getPool();
+
+  const result = await pool
+    .request()
+    .input("Id", sql.Int, input.id)
+    .input("Status", sql.NVarChar(20), input.status)
+    .input("Note", sql.NVarChar(sql.MAX), input.note)
+    .input("NoteIsSet", sql.Bit, input.noteIsSet ? 1 : 0)
+    .input("HandledBy", sql.NVarChar(100), input.handledBy)
+    .query(
+      `
+        UPDATE Lead
+        SET
+          Status = @Status,
+          Note = CASE WHEN @NoteIsSet = 1 THEN @Note ELSE Note END,
+          HandledBy = @HandledBy,
+          HandledAt = CASE
+            WHEN @Status <> N'new' AND HandledAt IS NULL THEN SYSUTCDATETIME()
+            ELSE HandledAt
+          END,
+          UpdatedAt = SYSUTCDATETIME()
+        WHERE Id = @Id;
+
+        SELECT @@ROWCOUNT AS Affected;
+      `,
+    );
+
+  const row = result.recordset[0] as { Affected?: number } | undefined;
+  return Boolean(row?.Affected);
 }

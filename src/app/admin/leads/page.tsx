@@ -1,6 +1,8 @@
 import { isDbConfigured } from "@/lib/db/connection";
 import { getLatestLeads } from "@/lib/db/queries/leads";
 
+import { updateLeadAction } from "./actions";
+
 export default async function AdminLeadsPage() {
   if (!isDbConfigured()) {
     return (
@@ -25,7 +27,7 @@ export default async function AdminLeadsPage() {
       </div>
 
       <div className="mt-6 overflow-x-auto rounded-lg border border-neutral-200 bg-white">
-        <table className="w-full min-w-[1100px] text-left text-sm">
+        <table className="w-full min-w-[1400px] text-left text-sm">
           <thead className="bg-neutral-50 text-neutral-700">
             <tr>
               <th className="px-4 py-3 font-medium">Received</th>
@@ -38,6 +40,9 @@ export default async function AdminLeadsPage() {
               <th className="px-4 py-3 font-medium">Sector</th>
               <th className="px-4 py-3 font-medium">Timeline</th>
               <th className="px-4 py-3 font-medium">Budget</th>
+              <th className="px-4 py-3 font-medium">Status</th>
+              <th className="px-4 py-3 font-medium">Note</th>
+              <th className="px-4 py-3 font-medium">Handled</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-neutral-200">
@@ -55,12 +60,63 @@ export default async function AdminLeadsPage() {
                 <td className="px-4 py-3 text-neutral-700">{lead.sector ?? ""}</td>
                 <td className="px-4 py-3 text-neutral-700">{lead.timeline ?? ""}</td>
                 <td className="px-4 py-3 text-neutral-700">{lead.budgetBand ?? ""}</td>
+
+                <td className="px-4 py-3">
+                  <form action={updateLeadAction} className="flex items-center gap-2">
+                    <input type="hidden" name="id" value={lead.id} />
+                    <select
+                      name="status"
+                      defaultValue={lead.status ?? "new"}
+                      className="h-9 rounded-md border border-neutral-200 bg-white px-2 text-sm"
+                    >
+                      <option value="new">new</option>
+                      <option value="contacted">contacted</option>
+                      <option value="quoted">quoted</option>
+                      <option value="won">won</option>
+                      <option value="lost">lost</option>
+                    </select>
+                    <button
+                      type="submit"
+                      className="h-9 rounded-md bg-neutral-900 px-3 text-sm font-medium text-white"
+                    >
+                      Save
+                    </button>
+                  </form>
+                </td>
+
+                <td className="px-4 py-3">
+                  <form action={updateLeadAction} className="flex items-start gap-2">
+                    <input type="hidden" name="id" value={lead.id} />
+                    <input type="hidden" name="status" value={lead.status ?? "new"} />
+                    <textarea
+                      name="note"
+                      defaultValue={lead.note ?? ""}
+                      rows={2}
+                      className="min-h-[42px] w-[320px] resize-y rounded-md border border-neutral-200 bg-white px-2 py-1 text-sm"
+                    />
+                    <button
+                      type="submit"
+                      className="h-9 rounded-md bg-neutral-900 px-3 text-sm font-medium text-white"
+                    >
+                      Save
+                    </button>
+                  </form>
+                </td>
+
+                <td className="px-4 py-3 text-neutral-700">
+                  <div className="space-y-1">
+                    <div>{lead.handledBy ?? ""}</div>
+                    <div className="text-xs text-neutral-500">
+                      {lead.handledAt ? new Date(lead.handledAt).toLocaleString("th-TH") : ""}
+                    </div>
+                  </div>
+                </td>
               </tr>
             ))}
 
             {leads.length === 0 ? (
               <tr>
-                <td className="px-4 py-6 text-neutral-600" colSpan={10}>
+                <td className="px-4 py-6 text-neutral-600" colSpan={13}>
                   No leads yet.
                 </td>
               </tr>
