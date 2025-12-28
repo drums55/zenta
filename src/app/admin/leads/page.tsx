@@ -4,6 +4,12 @@ import { getLatestLeads } from "@/lib/db/queries/leads";
 import { updateLeadAction } from "./actions";
 
 export default async function AdminLeadsPage() {
+  const formatBangkok = (iso: string) =>
+    new Date(iso).toLocaleString("th-TH", {
+      timeZone: "Asia/Bangkok",
+      hour12: false,
+    });
+
   if (!isDbConfigured()) {
     return (
       <main className="mx-auto max-w-5xl px-6 py-10">
@@ -49,7 +55,7 @@ export default async function AdminLeadsPage() {
             {leads.map((lead) => (
               <tr key={lead.id} className="align-top">
                 <td className="px-4 py-3 text-neutral-700">
-                  {new Date(lead.receivedAt).toLocaleString("th-TH")}
+                  {formatBangkok(lead.receivedAt)}
                 </td>
                 <td className="px-4 py-3 text-neutral-700">{lead.type}</td>
                 <td className="px-4 py-3 text-neutral-900">{lead.name}</td>
@@ -107,7 +113,7 @@ export default async function AdminLeadsPage() {
                   <div className="space-y-1">
                     <div>{lead.handledBy ?? ""}</div>
                     <div className="text-xs text-neutral-500">
-                      {lead.handledAt ? new Date(lead.handledAt).toLocaleString("th-TH") : ""}
+                      {lead.handledAt ? formatBangkok(lead.handledAt) : ""}
                     </div>
                   </div>
                 </td>
