@@ -118,7 +118,7 @@ async function pushLineMessage(text: string) {
   if (!response.ok) {
     const body = await response.text().catch(() => "");
     console.error("[zenta] LINE push failed", response.status, body);
-    return { ok: false as const };
+    return { ok: false as const, status: response.status, body };
   }
 
   return { ok: true as const };
@@ -200,11 +200,18 @@ export async function POST(request: Request) {
   const lineMessage = formatLeadForLine(lead);
   const lineResult = await pushLineMessage(lineMessage);
 
-  const lineDelivered = "ok" in lineResult ? lineResult.ok : true;
+  const lineFailureCode =
+    "ok" in lineResult && !lineResult.ok
+      ? lineResult.status === 429
+        ? "LINE_QUOTA_EXCEEDED"
+        : "LINE_DELIVERY_FAILED"
+      : null;
+
+  const lineDelivered = !lineFailureCode;
 
   if (!dbSaved && !lineDelivered) {
     return NextResponse.json(
-      { ok: false, error: "LINE_DELIVERY_FAILED" },
+      { ok: false, error: lineFailureCode ?? "LINE_DELIVERY_FAILED" },
       { status: 502 },
     );
   }
@@ -212,6 +219,6 @@ export async function POST(request: Request) {
   return NextResponse.json({
     ok: true,
     leadId,
-    warning: !lineDelivered ? "LINE_DELIVERY_FAILED" : undefined,
+    warning: lineFailureCode ?? undefined,
   });
 }

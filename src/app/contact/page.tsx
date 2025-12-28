@@ -47,6 +47,8 @@ function errorMessage(code: string) {
       return "กรุณาใส่อย่างน้อย 1 ช่องทางติดต่อ (โทร / LINE / อีเมล)";
     case "INVALID_TYPE":
       return "รูปแบบคำขอไม่ถูกต้อง กรุณาลองใหม่";
+    case "LINE_QUOTA_EXCEEDED":
+      return "ส่งข้อมูลได้ แต่โควต้าแจ้งเตือน LINE OA เต็มเดือนนี้ กรุณาเพิ่มช่องทางติดต่อ (โทร/อีเมล) หรือทัก LINE OA โดยตรง";
     case "LINE_DELIVERY_FAILED":
       return "ส่งข้อมูลได้ แต่ระบบแจ้งเตือนทีมงานขัดข้องชั่วคราว กรุณาเพิ่มช่องทางติดต่อ (LINE/โทร) หรือทัก LINE OA โดยตรง";
     default:
