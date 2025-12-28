@@ -1,0 +1,27 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+model Lead {
+  Id         Int      @id(map: "PK_Lead") @default(autoincrement())
+  Type       String   @db.NVarChar(20)
+  Name       String   @db.NVarChar(200)
+  Phone      String?  @db.NVarChar(50)
+  Line       String?  @db.NVarChar(100)
+  Email      String?  @db.NVarChar(200)
+  Location   String?  @db.NVarChar(200)
+  Sector     String?  @db.NVarChar(50)
+  Surfaces   String?  @db.NVarChar(Max)
+  Timeline   String?  @db.NVarChar(50)
+  BudgetBand String?  @db.NVarChar(50)
+  Message    String?  @db.NVarChar(Max)
+  ReceivedAt DateTime
+
+  @@index([ReceivedAt(sort: Desc)], map: "IX_Lead_ReceivedAt")
+  @@index([Type, ReceivedAt(sort: Desc)], map: "IX_Lead_Type_ReceivedAt")
+}
